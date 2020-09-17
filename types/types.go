@@ -112,6 +112,13 @@ type OrderResult struct {
 	OrderLineNumber int
 }
 
+// CustomerOrderResult TODO
+type CustomerOrderResult struct {
+	OrderNumber       int
+	NbOrderedProducts int
+	TotalPrice        float32
+}
+
 // CustomerResult TODO
 type CustomerResult struct {
 	CustomerNumber         string
@@ -127,8 +134,5 @@ type CustomerResult struct {
 	Country                string
 	SalesRepEmployeeNumber int
 	CreditLimit            float32
-	SalesRespEmp           string
-	OrderNumber            int
-	NbOrderedProducts      int
-	TotalPrice             float32
+	Orders                 []CustomerOrderResult
 }
