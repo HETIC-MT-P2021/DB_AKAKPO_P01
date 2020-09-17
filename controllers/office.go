@@ -1,15 +1,19 @@
 package controllers
 
 import (
+	"akakpo/db/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-// ReadAllOffices Reads all offices from database
-func ReadAllOffices(c *gin.Context) {
-	c.JSON(http.StatusCreated, gin.H{
+// GetOffice Reads all offices from database
+func GetOffice(c *gin.Context) {
+	id := c.Param("id")
+	response, _ := models.ReadOffice(id)
+
+	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"content": "",
+		"content": response,
 	})
 }
