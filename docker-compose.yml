@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+  database:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 3wsycAkkg9hetjCDTPPQ84ywQUAgVQ3a
+      MYSQL_DATABASE: classicmodels
+      MYSQL_USER: classicmodels_admin
+      MYSQL_PASSWORD: 3ns9EaPNbM3nH9EJ
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+
+  app:
+    build: .
+    environment:
+      GIN_MODE: release
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "8081:8081"
+    command: go run main.go
+    links:
+      - database
