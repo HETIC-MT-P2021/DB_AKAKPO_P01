@@ -1,6 +1,8 @@
 package models
 
-import "akakpo/db/types"
+import (
+	"akakpo/db/types"
+)
 
 // ReadCustomer TODO
 func ReadCustomer(id string) (types.CustomerResult, error) {
@@ -9,10 +11,16 @@ func ReadCustomer(id string) (types.CustomerResult, error) {
 	`
 
 	var response types.CustomerResult
-	var err error
+	var errors []error
 
-	row := Database.QueryRow(sql, id)
-	err = row.Scan(
+	rows, queryErr := Database.Query(sql, id)
+
+	if queryErr != nil {
+		errors = append(errors, queryErr)
+	}
+
+	rows.Next()
+	scanError := rows.Scan(
 		&response.CustomerNumber,
 		&response.CustomerName,
 		&response.ContactLastName,
@@ -28,7 +36,14 @@ func ReadCustomer(id string) (types.CustomerResult, error) {
 		&response.CreditLimit,
 	)
 
-	return response, err
+	if scanError != nil {
+		errors = append(errors, scanError)
+	}
+
+	if len(errors) == 0 {
+		return response, nil
+	}
+	return response, errors[0]
 }
 
 // ReadCustomerOrders TODO
@@ -45,20 +60,31 @@ func ReadCustomerOrders(customerNumber string) ([]types.CustomerOrderResult, err
 	`
 
 	var response []types.CustomerOrderResult
-	var err error
+	var errors []error
 
-	rows, _ := Database.Query(sql, customerNumber)
+	rows, queryErr := Database.Query(sql, customerNumber)
+
+	if queryErr != nil {
+		errors = append(errors, queryErr)
+	}
 
 	for rows.Next() {
 		item := types.CustomerOrderResult{}
-		err = rows.Scan(
+		scanErr := rows.Scan(
 			&item.OrderNumber,
 			&item.NbOrderedProducts,
 			&item.TotalPrice,
 		)
 
+		if scanErr != nil {
+			errors = append(errors, scanErr)
+		}
+
 		response = append(response, item)
 	}
 
-	return response, err
+	if len(errors) == 0 {
+		return response, nil
+	}
+	return response, errors[0]
 }

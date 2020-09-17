@@ -9,14 +9,33 @@ import (
 
 // GetCustomer Reads all customers from database
 func GetCustomer(c *gin.Context) {
+	var err error
 	id := c.Param("id")
-	customer, _ := models.ReadCustomer(id)
-	customerOrders, _ := models.ReadCustomerOrders(customer.CustomerNumber)
 
+	customer, err1 := models.ReadCustomer(id)
+
+	if err1 != nil {
+		err = err1
+	}
+
+	customerOrders, err2 := models.ReadCustomerOrders(customer.CustomerNumber)
 	customer.Orders = customerOrders
 
-	c.JSON(http.StatusOK, gin.H{
-		"success": true,
-		"content": customer,
-	})
+	if err2 != nil {
+		err = err2
+	}
+
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err.Error(),
+			"data":    nil,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"message": "",
+			"data":    customer,
+		})
+	}
 }

@@ -14,6 +14,7 @@ func GetOrder(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"content": response,
+"message": "",
+		"data": response,
 	})
 }
