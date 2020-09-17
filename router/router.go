@@ -1,6 +1,7 @@
 package router
 
 import (
+	"akakpo/db/controllers"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,13 +25,13 @@ func Configure() *gin.Engine {
 
 		// Dashboard routes
 		// Clients
-		api.GET("/customers", healthCheck)
+		api.GET("/customers/:id", controllers.GetCustomer)
 		// Commandes
-		api.GET("/orders", healthCheck)
+		api.GET("/orders/:id", controllers.GetOrder)
 		// Magasins
-		api.GET("/offices", healthCheck)
+		api.GET("/offices/:id", controllers.GetOffice)
 		// Employés des magasin
-		api.GET("/employees", healthCheck)
+		api.GET("/employees/:id", controllers.GetEmployee)
 	}
 
 	return router
