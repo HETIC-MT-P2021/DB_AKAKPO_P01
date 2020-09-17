@@ -14,13 +14,13 @@ func ReadOffice(id string) ([]types.OfficeResult, error) {
 			E.jobTitle,
 			(SELECT CONCAT(firstName, ' ', lastName) AS fullName FROM employees WHERE employeeNumber = E.reportsTo) AS reportsTo
 		FROM employees E
-		WHERE E.officeCode = 1
+		WHERE E.officeCode = ?
 	`
 
 	var response []types.OfficeResult
 	var err error
 
-	rows, _ := Database.Query(sql)
+	rows, _ := Database.Query(sql, id)
 	defer rows.Close()
 
 	for rows.Next() {

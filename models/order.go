@@ -1,6 +1,8 @@
 package models
 
-import "akakpo/db/types"
+import (
+	"akakpo/db/types"
+)
 
 // ReadOrder reads all the orders
 func ReadOrder(id string) ([]types.OrderResult, error) {
@@ -11,14 +13,14 @@ func ReadOrder(id string) ([]types.OrderResult, error) {
 			OD.priceEach,
 			OD.orderLineNumber
 		FROM orderdetails OD INNER JOIN orders O ON OD.orderNumber = O.orderNumber
-		WHERE O.orderNumber = 10115
-		GROUP BY OD.productCode
+		WHERE O.orderNumber = ?
 	`
+	// Why GROUP BY OD.productCode is not working here with query parameters ?
 
 	var response []types.OrderResult
 	var err error
 
-	rows, _ := Database.Query(sql)
+	rows, _ := Database.Query(sql, id)
 
 	for rows.Next() {
 		item := types.OrderResult{}

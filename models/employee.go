@@ -21,12 +21,12 @@ func ReadEmployee(id string) (types.EmployeeResult, error) {
 			O.addressLine2 AS officeAddressLine2
 		FROM employees E
 		INNER JOIN offices O ON E.officeCode = O.officeCode
-		WHERE E.employeeNumber = 1056
+		WHERE E.employeeNumber = ?
 	`
 
 	var response types.EmployeeResult
 
-	row := Database.QueryRow(sql)
+	row := Database.QueryRow(sql, id)
 	err := row.Scan(&response.EmployeeNumber, &response.LastName, &response.FirstName, &response.Extension, &response.Email, &response.JobTitle, &response.ReportsTo, &response.OfficeCity, &response.OfficePhone, &response.OfficeAddressLine1, &response.OfficeAddressLine2)
 
 	return response, err

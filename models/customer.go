@@ -5,13 +5,13 @@ import "akakpo/db/types"
 // ReadCustomer TODO
 func ReadCustomer(id string) (types.CustomerResult, error) {
 	sql := `
-		SELECT * FROM customers WHERE customerNumber = 112
+		SELECT * FROM customers WHERE customerNumber = ?
 	`
 
 	var response types.CustomerResult
 	var err error
 
-	row := Database.QueryRow(sql)
+	row := Database.QueryRow(sql, id)
 	err = row.Scan(
 		&response.CustomerNumber,
 		&response.CustomerName,
@@ -32,7 +32,7 @@ func ReadCustomer(id string) (types.CustomerResult, error) {
 }
 
 // ReadCustomerOrders TODO
-func ReadCustomerOrders(customberNumber string) ([]types.CustomerOrderResult, error) {
+func ReadCustomerOrders(customerNumber string) ([]types.CustomerOrderResult, error) {
 	sql := `
 		SELECT
 			O.orderNumber,
@@ -40,14 +40,14 @@ func ReadCustomerOrders(customberNumber string) ([]types.CustomerOrderResult, er
 			SUM(OD.quantityOrdered * OD.priceEach) AS totalPrice
 		FROM orders O
 		INNER JOIN orderdetails OD ON O.orderNumber = OD.orderNumber
-		WHERE O.customerNumber = 112
+		WHERE O.customerNumber = ?
 		GROUP BY O.orderNumber
 	`
 
 	var response []types.CustomerOrderResult
 	var err error
 
-	rows, _ := Database.Query(sql)
+	rows, _ := Database.Query(sql, customerNumber)
 
 	for rows.Next() {
 		item := types.CustomerOrderResult{}
