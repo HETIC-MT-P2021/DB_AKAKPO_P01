@@ -17,7 +17,7 @@ func main() {
 	user = os.Getenv("DB_USER")
 	password = os.Getenv("DB_PASSWORD")
 	port = os.Getenv("DB_PORT")
-	apiPort = os.Getenv("API_PORT")
+	apiPort = os.Getenv("PORT")
 
 	if host == "" {
 		// Read env vars from .env file instead
@@ -28,7 +28,7 @@ func main() {
 		user = env["DB_USER"]
 		password = env["DB_PASSWORD"]
 		port = env["DB_PORT"]
-		apiPort = env["API_PORT"]
+		apiPort = env["PORT"]
 	}
 
 	// Attempt to connect to database - 5 tries to fallback and exit process
