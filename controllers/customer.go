@@ -7,28 +7,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetCustomer Reads all customers from database
-func GetCustomer(c *gin.Context) {
+// GetCustomerAndItsOrders TODO
+func GetCustomerAndItsOrders(c *gin.Context) {
 	var err error
+
 	id := c.Param("id")
+	customer, readingCustomerError := models.ReadCustomer(id)
 
-	customer, err1 := models.ReadCustomer(id)
-
-	if err1 != nil {
-		err = err1
+	if readingCustomerError != nil {
+		err = readingCustomerError
 	}
 
-	customerOrders, err2 := models.ReadCustomerOrders(customer.CustomerNumber)
+	customerOrders, readingCustomerOrdersError := models.ReadCustomerOrders(customer.CustomerNumber)
 	customer.Orders = customerOrders
 
-	if err2 != nil {
-		err = err2
+	if readingCustomerOrdersError != nil {
+		err = readingCustomerOrdersError
 	}
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": err.Error(),
+			"message": "Cannot retreive customer or its orders. Error message: " + err.Error(),
 			"data":    nil,
 		})
 	} else {

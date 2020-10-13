@@ -7,14 +7,30 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetOrder Reads all orders from database
+// GetOrder TODO
 func GetOrder(c *gin.Context) {
 	id := c.Param("id")
-	response, _ := models.ReadOrder(id)
+	orders, readingOrderError := models.ReadOrder(id)
 
-	c.JSON(http.StatusOK, gin.H{
-		"success": true,
-"message": "",
-		"data": response,
-	})
+	if readingOrderError != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "Cannot retreive order. Error message: " + readingOrderError.Error(),
+			"data":    orders,
+		})
+	} else {
+		if orders == nil {
+			c.JSON(http.StatusOK, gin.H{
+				"success": true,
+				"message": "No order found",
+				"data":    nil,
+			})
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"success": true,
+				"message": "",
+				"data":    orders,
+			})
+		}
+	}
 }

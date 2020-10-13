@@ -7,14 +7,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetEmployee Reads all employees from database
+// GetEmployee TODO
 func GetEmployee(c *gin.Context) {
 	id := c.Param("id")
-	response, _ := models.ReadEmployee(id)
+	employee, readingEmployeeError := models.ReadEmployee(id)
 
-	c.JSON(http.StatusOK, gin.H{
-		"success": true,
-"message": "",
-		"data": response,
-	})
+	if readingEmployeeError != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "Cannot retreive employee data. Error message: " + readingEmployeeError.Error(),
+			"data":    nil,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"message": "",
+			"data":    employee,
+		})
+	}
 }

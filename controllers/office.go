@@ -7,14 +7,35 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetOffice Reads all offices from database
+// GetOffice TODO
 func GetOffice(c *gin.Context) {
-	id := c.Param("id")
-	response, _ := models.ReadOffice(id)
+	var err error
 
-	c.JSON(http.StatusOK, gin.H{
-		"success": true,
-"message": "",
-		"data": response,
-	})
+	id := c.Param("id")
+	office, readingOfficeError := models.ReadOffice(id)
+
+	if readingOfficeError != nil {
+		err = readingOfficeError
+	}
+
+	officeEmployees, readingOfficeEmployeesError := models.ReadOfficeEmployees(office.OfficeCode)
+	office.Employees = officeEmployees
+
+	if readingOfficeEmployeesError != nil {
+		err = readingOfficeEmployeesError
+	}
+
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "Cannot retreive office or its employees. Error message: " + err.Error(),
+			"data":    nil,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"message": "",
+			"data":    office,
+		})
+	}
 }
