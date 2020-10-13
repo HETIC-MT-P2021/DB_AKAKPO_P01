@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetCustomerAndItsOrders TODO
+// GetCustomerAndItsOrders Given an id as parameter, return the related customer and a recap of its orders
 func GetCustomerAndItsOrders(c *gin.Context) {
 	var err error
 

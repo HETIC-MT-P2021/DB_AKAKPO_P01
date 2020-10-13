@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetOrder TODO
+// GetOrder Given an id, return the related order and its details
 func GetOrder(c *gin.Context) {
 	id := c.Param("id")
 	orders, readingOrderError := models.ReadOrder(id)

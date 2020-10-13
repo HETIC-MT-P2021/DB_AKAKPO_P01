@@ -4,7 +4,7 @@ import (
 	"akakpo/db/types"
 )
 
-// ReadEmployee TODO
+// ReadEmployee Retreive from database an employee
 func ReadEmployee(id string) (types.EmployeeResult, error) {
 	sql := `
 		SELECT

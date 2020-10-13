@@ -4,7 +4,7 @@ import (
 	"akakpo/db/types"
 )
 
-// ReadOrder TODO
+// ReadOrder Retreive from database an order
 func ReadOrder(id string) ([]types.OrderResult, error) {
 	sql := `
 		SELECT

@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetOffice TODO
+// GetOffice Given an id, return the related office and its employees
 func GetOffice(c *gin.Context) {
 	var err error
 

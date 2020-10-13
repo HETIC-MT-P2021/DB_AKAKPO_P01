@@ -2,7 +2,7 @@ package models
 
 import "akakpo/db/types"
 
-// ReadOffice TODO
+// ReadOffice Retreive from database an office
 func ReadOffice(id string) (types.OfficeResult, error) {
 	sql := `
 		SELECT
@@ -41,7 +41,7 @@ func ReadOffice(id string) (types.OfficeResult, error) {
 	return response, errors[0]
 }
 
-// ReadOfficeEmployees TODO
+// ReadOfficeEmployees Retreive from database the employees of an office
 func ReadOfficeEmployees(id string) ([]types.OfficeEmployeeResult, error) {
 	sql := `
 		SELECT

@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetEmployee TODO
+// GetEmployee Given an id, return the related employee and the its office
 func GetEmployee(c *gin.Context) {
 	id := c.Param("id")
 	employee, readingEmployeeError := models.ReadEmployee(id)

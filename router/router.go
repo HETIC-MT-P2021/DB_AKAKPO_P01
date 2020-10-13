@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Just return a simple message showing that API was successfull started
 func healthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "API is running successfully",
@@ -24,16 +25,16 @@ func Configure() *gin.Engine {
 		// Check API status
 		api.GET("/", healthCheck)
 
-		// Fiche d'un client avec récapitulatif de ses commandes
+		// Customer view with its orders
 		api.GET("/customers/:id", controllers.GetCustomerAndItsOrders)
 
-		// Fiche d'une commande avec ses détails
+		// Order view with its details
 		api.GET("/orders/:id", controllers.GetOrder)
 
-		// Fiche d'un employé avec le magasin associé
+		// Employee view with its office
 		api.GET("/employees/:id", controllers.GetEmployee)
 
-		// Fiche d'un magasin avec ses employés
+		// Office view with its employees
 		api.GET("/offices/:id", controllers.GetOffice)
 	}
 

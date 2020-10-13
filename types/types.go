@@ -53,7 +53,7 @@ type Customer struct {
 	CreditLimit            float32
 }
 
-// OfficeEmployeeResult TODO
+// OfficeEmployeeResult Represents the return shape of an office employee
 type OfficeEmployeeResult struct {
 	EmployeeNumber int
 	LastName       string
@@ -64,7 +64,7 @@ type OfficeEmployeeResult struct {
 	ReportsTo      NullString
 }
 
-// OfficeResult TODO
+// OfficeResult Represents the return shape of an office
 type OfficeResult struct {
 	OfficeCode   string
 	City         string
@@ -78,7 +78,7 @@ type OfficeResult struct {
 	Employees    []OfficeEmployeeResult
 }
 
-// EmployeeResult TODO
+// EmployeeResult Represents the return shape of an employee
 type EmployeeResult struct {
 	EmployeeNumber     int
 	LastName           string
@@ -93,7 +93,7 @@ type EmployeeResult struct {
 	OfficeAddressLine2 NullString
 }
 
-// OrderResult TODO
+// OrderResult Represents the return shape of an order
 type OrderResult struct {
 	ProductName     string
 	QuantityOrdered int
@@ -101,14 +101,14 @@ type OrderResult struct {
 	OrderLineNumber int
 }
 
-// CustomerOrderResult TODO
+// CustomerOrderResult Represents the return shape of a customer order
 type CustomerOrderResult struct {
 	OrderNumber       int
 	NbOrderedProducts int
 	TotalPrice        float32
 }
 
-// CustomerResult TODO
+// CustomerResult Represents the return shape of a customer
 type CustomerResult struct {
 	CustomerNumber         string
 	CustomerName           string

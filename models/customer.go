@@ -4,7 +4,7 @@ import (
 	"akakpo/db/types"
 )
 
-// ReadCustomer TODO
+// ReadCustomer Retreive from database a customer
 func ReadCustomer(id string) (types.CustomerResult, error) {
 	sql := `
 		SELECT * FROM customers WHERE customerNumber = ?
@@ -46,7 +46,7 @@ func ReadCustomer(id string) (types.CustomerResult, error) {
 	return response, errors[0]
 }
 
-// ReadCustomerOrders TODO
+// ReadCustomerOrders Retreive from database the orders of a customer
 func ReadCustomerOrders(customerNumber string) ([]types.CustomerOrderResult, error) {
 	sql := `
 		SELECT
