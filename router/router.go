@@ -16,6 +16,24 @@ func healthCheck(c *gin.Context) {
 	})
 }
 
+// Route not configured
+func routeNotFound(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Route not found on API",
+		"success": false,
+		"data":    nil,
+	})
+}
+
+// Route not configured
+func methodNotFound(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Method with that route not found on API",
+		"success": false,
+		"data":    nil,
+	})
+}
+
 // Configure configure routes and handlers and return it
 func Configure() *gin.Engine {
 	router := gin.New()
@@ -37,6 +55,9 @@ func Configure() *gin.Engine {
 		// Office view with its employees
 		api.GET("/offices/:id", controllers.GetOffice)
 	}
+
+	router.NoRoute(routeNotFound)
+	router.NoMethod(methodNotFound)
 
 	return router
 }
