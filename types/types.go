@@ -1,10 +1,5 @@
 package types
 
-import (
-	"database/sql"
-	"reflect"
-)
-
 // Order Represents an order
 type Order struct {
 	OrderNumber    int
@@ -58,28 +53,8 @@ type Customer struct {
 	CreditLimit            float32
 }
 
-// NullString TODO
-type NullString sql.NullString
-
-// Scan implements the Scanner interface for NullString
-func (ns *NullString) Scan(value interface{}) error {
-	var s sql.NullString
-	if err := s.Scan(value); err != nil {
-		return err
-	}
-
-	// if nil then make Valid false
-	if reflect.TypeOf(value) == nil {
-		*ns = NullString{s.String, false}
-	} else {
-		*ns = NullString{s.String, true}
-	}
-
-	return nil
-}
-
-// OfficeResult TODO
-type OfficeResult struct {
+// OfficeEmployeeResult TODO
+type OfficeEmployeeResult struct {
 	EmployeeNumber int
 	LastName       string
 	FirstName      string
@@ -87,6 +62,20 @@ type OfficeResult struct {
 	Email          string
 	JobTitle       string
 	ReportsTo      NullString
+}
+
+// OfficeResult TODO
+type OfficeResult struct {
+	OfficeCode   string
+	City         string
+	Phone        string
+	AddressLine1 string
+	AddressLine2 NullString
+	State        NullString
+	Country      string
+	PostalCode   string
+	Territory    string
+	Employees    []OfficeEmployeeResult
 }
 
 // EmployeeResult TODO
@@ -101,7 +90,7 @@ type EmployeeResult struct {
 	OfficeCity         string
 	OfficePhone        string
 	OfficeAddressLine1 string
-	OfficeAddressLine2 string
+	OfficeAddressLine2 NullString
 }
 
 // OrderResult TODO
@@ -127,10 +116,10 @@ type CustomerResult struct {
 	ContactFirstName       string
 	Phone                  string
 	AddressLine1           string
-	AddressLine2           string
+	AddressLine2           NullString
 	City                   string
-	State                  string
-	PostalCode             string
+	State                  NullString
+	PostalCode             NullString
 	Country                string
 	SalesRepEmployeeNumber int
 	CreditLimit            float32
