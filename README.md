@@ -22,7 +22,7 @@ This application is an API that could be used to generate a dashboard from a set
 
 ## ✨ Demo available on Heroku
 
-You can test the API deployed on Heroku with this [link](coming-soon).
+You can test the API deployed on Heroku with this [link](https://arcane-tor-21715.herokuapp.com/v1/).
 
 ## 🔥 Setup
 
