@@ -5,3 +5,4 @@ assets
 bin
 vendor
 .DS_Store
+main
