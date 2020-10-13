@@ -13,7 +13,21 @@ This application is an API that could be used to generate a dashboard from a set
 
 The project requires Golang v`1.14.4`. Make sure you have [GoLang](https://golang.org/dl) installed and follow these steps.
 
-Install the dependencies and start the server.
+### 👨‍💻 Development mode
+
+In development mode, we are using [air](https://github.com/cosmtrek/air) to provide live reload capabilities.
+
+Install the dependencies and start the server with `air`
+
+```sh
+git clone https://github.com/HETIC-MT-P2021/DB_AKAKPO_P01 go-classicmodels
+cd go-classicmodels
+go get
+go mod tidy
+air
+```
+
+### 🚀 Production mode
 
 ```sh
 git clone https://github.com/HETIC-MT-P2021/DB_AKAKPO_P01 go-classicmodels
