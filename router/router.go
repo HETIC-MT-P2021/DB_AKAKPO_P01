@@ -11,6 +11,7 @@ func healthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "API is running successfully",
 		"success": true,
+		"data":    nil,
 	})
 }
 
@@ -23,15 +24,17 @@ func Configure() *gin.Engine {
 		// Check API status
 		api.GET("/", healthCheck)
 
-		// Dashboard routes
-		// Clients
-		api.GET("/customers/:id", controllers.GetCustomer)
-		// Commandes
+		// Fiche d'un client avec récapitulatif de ses commandes
+		api.GET("/customers/:id", controllers.GetCustomerAndItsOrders)
+
+		// Fiche d'une commande avec ses détails
 		api.GET("/orders/:id", controllers.GetOrder)
-		// Magasins
-		api.GET("/offices/:id", controllers.GetOffice)
-		// Employés des magasin
+
+		// Fiche d'un employé avec le magasin associé
 		api.GET("/employees/:id", controllers.GetEmployee)
+
+		// Fiche d'un magasin avec ses employés
+		api.GET("/offices/:id", controllers.GetOffice)
 	}
 
 	return router
