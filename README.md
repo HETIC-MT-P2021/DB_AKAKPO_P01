@@ -4,10 +4,25 @@ This application is an API that could be used to generate a dashboard from a set
 
 ## 🌈 Features
 
-- Generate a view of customers, with a recap of their orders
+- Generate a view of customer, with a recap of their orders
+
+![Customer view](./previews/1-customer.png)
+
 - Generate a view of an order
+
+![Order view](./previews/2-order.png)
+
 - Generate a view of an employee
+
+![Employee view](./previews/3-employee.png)
+
 - Generate a view of an office, its employees included
+
+![Office view](./previews/4-office.png)
+
+## ✨ Demo available on Heroku
+
+You can test the API deployed on Heroku with this [link](coming-soon).
 
 ## 🔥 Setup
 
